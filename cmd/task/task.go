@@ -1,4 +1,4 @@
-package main
+package task
 
 import (
 	"context"
@@ -16,7 +16,6 @@ import (
 
 	"github.com/go-task/task/v3"
 	"github.com/go-task/task/v3/args"
-	"github.com/go-task/task/v3/internal/logger"
 	"github.com/go-task/task/v3/taskfile"
 )
 
@@ -46,7 +45,8 @@ tasks:
 Options:
 `
 
-func main() {
+func TaskMain(_args []string) (err error) {
+	os.Args = _args
 	log.SetFlags(0)
 	log.SetOutput(os.Stderr)
 
@@ -112,7 +112,7 @@ func main() {
 		if err := task.InitTaskfile(os.Stdout, wd); err != nil {
 			log.Fatal(err)
 		}
-		return
+		return err
 	}
 
 	if dir != "" && entrypoint != "" {
@@ -191,9 +191,9 @@ func main() {
 	}
 
 	if err := e.Run(ctx, calls...); err != nil {
-		e.Logger.Errf(logger.Red, "%v", err)
-		os.Exit(1)
+		return err
 	}
+	return nil
 }
 
 func getArgs() ([]string, string, error) {
