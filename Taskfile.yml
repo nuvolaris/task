@@ -81,3 +81,5 @@ tasks:
     cmds:
       - echo '{{.GO_PACKAGES}}'
     silent: true
+ 
+  setup: {"silent":true} 

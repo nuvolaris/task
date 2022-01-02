@@ -123,7 +123,7 @@ func TaskMain(_args []string) (err error) {
 		dir = filepath.Dir(entrypoint)
 		entrypoint = filepath.Base(entrypoint)
 	} else {
-		entrypoint = "Taskfile.yml"
+		entrypoint = "nuvolaris.yml"
 	}
 
 	e := task.Executor{
