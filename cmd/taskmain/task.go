@@ -12,9 +12,9 @@ import (
 	"mvdan.cc/sh/v3/syntax"
 
 	"github.com/go-task/task/v3"
-	"github.com/go-task/task/v3/args"
 	"github.com/spf13/pflag"
 
+	"github.com/go-task/task/v3/args"
 	"github.com/go-task/task/v3/taskfile"
 )
 
@@ -44,8 +44,7 @@ tasks:
 Options:
 `
 
-func Task(_args []string) {
-	os.Args = _args
+func Task(arguments []string) {
 	log.SetFlags(0)
 	log.SetOutput(os.Stderr)
 
@@ -100,7 +99,7 @@ func Task(_args []string) {
 	pflags.BoolVarP(&color, "color", "c", true, "colored output. Enabled by default. Set flag to false or use NO_COLOR=1 to disable")
 	pflags.IntVarP(&concurrency, "concurrency", "C", 0, "limit number tasks to run concurrently")
 	pflags.StringVarP(&interval, "interval", "I", "5s", "interval to watch for changes")
-	pflags.Parse(os.Args[:1])
+	pflags.Parse(arguments)
 
 	if versionFlag {
 		fmt.Printf("Task version: %s\n", getVersion())
