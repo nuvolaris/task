@@ -51,7 +51,7 @@ func Task(arguments []string) {
 	pflags := pflag.FlagSet{}
 	pflags.Usage = func() {
 		log.Print(usage)
-		pflag.PrintDefaults()
+		pflags.PrintDefaults()
 	}
 
 	var (
@@ -198,7 +198,7 @@ func Task(arguments []string) {
 		globals *taskfile.Vars
 	)
 
-	tasksAndVars, cliArgs, err := getArgs()
+	tasksAndVars, cliArgs, err := getArgs(pflags)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -238,10 +238,10 @@ func Task(arguments []string) {
 	}
 }
 
-func getArgs() ([]string, string, error) {
+func getArgs(pflags pflag.FlagSet) ([]string, string, error) {
 	var (
-		args          = pflag.Args()
-		doubleDashPos = pflag.CommandLine.ArgsLenAtDash()
+		args          = pflags.Args()
+		doubleDashPos = pflags.ArgsLenAtDash()
 	)
 
 	if doubleDashPos == -1 {
